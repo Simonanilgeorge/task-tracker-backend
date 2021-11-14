@@ -5,12 +5,14 @@ class ExpenseModel(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     name=db.Column(db.String(80))
     amount=db.Column(db.Float)
+    fruits=db.Column(db.String(100))
 
 
-    def __init__(self,name,amount):
+    def __init__(self,name,amount,fruits):
 
         self.name=name
         self.amount=amount
+        self.fruits=fruits
 
     def save_to_db(self):
 

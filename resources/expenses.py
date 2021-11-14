@@ -8,11 +8,13 @@ class ExpensesResource(Resource):
     def get(self):
 
         expenses=ExpenseModel.getAllExpenses()
+
         res=[
            {
                "id":expense.id,
                "name":expense.name,
-               "amount":expense.amount
+               "amount":expense.amount,
+               "fruits":expense.fruits.split(",")
            } for expense in expenses
         ]
         return {"message":res}
@@ -21,7 +23,8 @@ class ExpensesResource(Resource):
     def post(self):
 
         data=request.get_json()    
-        expense=ExpenseModel(data["name"],data["amount"])    
+        print(data)
+        expense=ExpenseModel(data["name"],data["amount"],",".join(data["fruits"]))    
         expense.save_to_db()
 
         return {"message":"new expense added"}
@@ -31,15 +34,15 @@ class ExpensesResource(Resource):
 
         expense=ExpenseModel.getExpenseById(id)
         expense.delete_from_db()
-
         return {"message":f"expense {id} deleted"}
 
-
     def put(self,id):
+
         data=request.get_json()
         expense=ExpenseModel.getExpenseById(id)
         expense.name=data["name"]
         expense.amount=data["amount"]
+        expense.fruits=",".join(data["fruits"])
 
         expense.save_to_db()
 
