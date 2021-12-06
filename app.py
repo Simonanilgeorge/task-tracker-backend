@@ -2,12 +2,18 @@ from flask import Flask
 from flask_restful import Api
 from flask_cors import CORS
 from db import db
+from flask_bcrypt import Bcrypt
 from resources.stocks import StocksResource
 from resources.expenses import ExpensesResource
+from resources.register import RegisterResource
+from resources.login import LoginResource
 from models.stock import StockModel
+from models.user import UserModel
+
 
 app=Flask(__name__)
 api=Api(app)
+bcrypt = Bcrypt(app)
 CORS(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root:root@mysql/tasktracker"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=False
@@ -19,6 +25,8 @@ def create_tables():
 
 api.add_resource(StocksResource,'/api/stocks','/api/stocks/<string:id>')
 api.add_resource(ExpensesResource,'/api/expenses','/api/expenses/<string:id>')
+api.add_resource(RegisterResource,'/api/register')
+api.add_resource(LoginResource,'/api/login')
 
 
 if __name__=="__main__":
