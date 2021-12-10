@@ -18,8 +18,8 @@ api=Api(app)
 bcrypt = Bcrypt(app)
 CORS(app)
 
-# jwt = JWTManager(app)
-# app.config['JWT_SECRET_KEY'] = 'jwt-secret-string'
+jwt = JWTManager(app)
+app.config['JWT_SECRET_KEY'] = 'jwt-secret-string'
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root:root@mysql/tasktracker"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=False
 

@@ -6,10 +6,12 @@ from models.stock import StockModel
 import json
 from sqlalchemy.sql import func
 from convert import convert
+from flask_jwt_extended import jwt_required
 
 
 class StocksResource(Resource):
 
+    # @jwt_required()
     def get(self):
         stocks=StockModel.getAllStocks()
         res=[

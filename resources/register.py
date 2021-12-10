@@ -1,7 +1,8 @@
 from flask.globals import request
 from flask_restful import Resource
 from models.user import UserModel
-# import jwt
+from flask_jwt_extended import jwt_required
+
 
 
 
@@ -15,10 +16,12 @@ class RegisterResource(Resource):
         user.save_to_db()
         return {"message":"success"}
 
-    # @jwt_required
+    @jwt_required()
     def get(self):
-        # token = jwt.encode({'public_id': "test"}, 'Th1s1ss3cr3t')
-        # print(token)
 
-        return {"message":"test"}
+        try:
+
+            return {"message":"test"}
+        except:
+            return {"message":"something went wrong"}
         # print(current_identity.json())
